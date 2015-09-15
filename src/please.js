@@ -114,7 +114,9 @@ var please_messageHandler = function (messageEvent) {
 		if (data.success) {
 			requests[data.id].resolve(data.data);
 		} else {
+			try{
 			requests[data.id].reject(new please.Error(data.data));
+			}catch(e) {throw new Error('please exploded on "name" issue with: ' + JSON.stringify(data));}
 		}
 
 		delete requests[data.id];
